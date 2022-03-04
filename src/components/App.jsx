@@ -1,12 +1,12 @@
 import "./App.css";
 import { Searchbar } from "./Searchbar";
-import { FetchData } from "./ItemList";
+import { ItemList } from "./ItemList";
 
 function App() {
   return (
     <>
       <Searchbar />
-      <FetchData />
+      <ItemList />
       <div>Hello World</div>
     </>
   );
