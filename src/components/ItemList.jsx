@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { search } from "fast-fuzzy";
+import { Button } from "./Button";
 
 const ApiURL = "https://fetch-me.vercel.app/api/shopping/items";
 
 export function ItemList() {
   const [shoppingList, setShoppingList] = useState([]);
   const [searchList, setSearchList] = useState([]);
+  const [activeList, setActiveList] = useState([]);
 
   useEffect(() => {
     FetchData();
@@ -20,6 +22,10 @@ export function ItemList() {
     }
   }, []);
 
+  function onButtonClick(buttonId) {
+    setActiveList(shoppingList.filter((item) => item._id === buttonId));
+  }
+
   function onSearchbarChange(searchInput) {
     setSearchList(
       search(searchInput, shoppingList, {
@@ -31,7 +37,7 @@ export function ItemList() {
   return (
     <>
       <ul>
-        {shoppingList.map((item) => (
+        {activeList.map((item) => (
           <li key={item._id}>{item.name.de}</li>
         ))}
       </ul>
@@ -41,7 +47,7 @@ export function ItemList() {
       ></input>
       <ul>
         {searchList.map((item) => (
-          <li key={item._id}>{item.name.de}</li>
+          <Button item={item} onButtonClick={onButtonClick} key={item._id} />
         ))}
       </ul>
     </>
