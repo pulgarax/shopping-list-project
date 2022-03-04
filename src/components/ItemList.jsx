@@ -47,7 +47,7 @@ export function ItemList() {
       ></input>
       <ul>
         {searchList.map((item) => (
-          <Button item={item} onButtonClick={onButtonClick} key={item._id} />
+          <Button item={item} key={item._id} onButtonClick={onButtonClick} />
         ))}
       </ul>
     </>

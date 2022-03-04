@@ -1,10 +1,8 @@
-export function Button(onButtonClick, item) {
+export function Button({ onButtonClick, item }) {
+  console.log("button-item", item);
   return (
     <>
-      {console.log(item)}
-      <button onClick={() => onButtonClick(item._id)}>
-        {item[0].name ? item[0].name.de : ""}
-      </button>
+      <button onClick={() => onButtonClick(item._id)}>{item.name.de}</button>
     </>
   );
 }
