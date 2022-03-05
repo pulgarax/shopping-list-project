@@ -8,6 +8,7 @@ export function ItemList() {
   const [shoppingList, setShoppingList] = useState([]);
   const [searchList, setSearchList] = useState([]);
   const [activeList, setActiveList] = useState([]);
+  const [isEmpty, setIsEmpty] = useState(false);
 
   useEffect(() => {
     FetchData();
@@ -27,6 +28,8 @@ export function ItemList() {
       ...activeList,
       shoppingList.filter((item) => item._id === buttonId),
     ]);
+    setSearchList([]);
+    setShoppingList(shoppingList.filter((item) => item._id !== buttonId));
     document.querySelector("#input").value = "";
   }
 
@@ -36,6 +39,7 @@ export function ItemList() {
         keySelector: (item) => item.name.de,
       })
     );
+    searchList.length === 0 ? setIsEmpty(false) : setIsEmpty(true);
   }
 
   return (
@@ -50,6 +54,7 @@ export function ItemList() {
         onChange={(e) => onSearchbarChange(e.target.value)}
         placeholder="Enter your search"
       ></input>
+      {isEmpty && <p>No results found</p>}
       <ul>
         {searchList.map((item) => (
           <Button item={item} key={item._id} onButtonClick={onButtonClick} />
