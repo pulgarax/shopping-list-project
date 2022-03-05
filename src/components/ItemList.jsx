@@ -23,7 +23,11 @@ export function ItemList() {
   }, []);
 
   function onButtonClick(buttonId) {
-    setActiveList(shoppingList.filter((item) => item._id === buttonId));
+    setActiveList([
+      ...activeList,
+      shoppingList.filter((item) => item._id === buttonId),
+    ]);
+    document.querySelector("#input").value = "";
   }
 
   function onSearchbarChange(searchInput) {
@@ -33,15 +37,16 @@ export function ItemList() {
       })
     );
   }
-  console.log(searchList);
+
   return (
     <>
       <ul>
         {activeList.map((item) => (
-          <li key={item._id}>{item.name.de}</li>
+          <li key={item[0]._id}>{item[0].name.de}</li>
         ))}
       </ul>
       <input
+        id="input"
         onChange={(e) => onSearchbarChange(e.target.value)}
         placeholder="Enter your search"
       ></input>
