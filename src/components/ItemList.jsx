@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { search } from "fast-fuzzy";
-import { Button } from "./Button";
+import { SearchListButton } from "./SearchListButton";
+import { ActiveListButton } from "./ActiveListButton";
 
 const ApiURL = "https://fetch-me.vercel.app/api/shopping/items";
 
@@ -26,7 +27,7 @@ export function ItemList() {
   function onButtonClick(buttonId) {
     setActiveList([
       ...activeList,
-      shoppingList.filter((item) => item._id === buttonId),
+      ...shoppingList.filter((item) => item._id === buttonId),
     ]);
     setSearchList([]);
     setShoppingList(shoppingList.filter((item) => item._id !== buttonId));
@@ -42,11 +43,25 @@ export function ItemList() {
     searchList.length === 0 ? setIsEmpty(false) : setIsEmpty(true);
   }
 
+  function onActiveButtonClick(buttonId) {
+    setActiveList(activeList.filter((item) => item._id !== buttonId));
+    setShoppingList([
+      ...shoppingList,
+      ...activeList.filter((item) => item._id === buttonId),
+    ]);
+  }
+
+  console.log("ActiveList: ", activeList);
+
   return (
     <>
       <ul>
         {activeList.map((item) => (
-          <li key={item[0]._id}>{item[0].name.de}</li>
+          <ActiveListButton
+            item={item}
+            key={item._id}
+            onButtonClick={onActiveButtonClick}
+          />
         ))}
       </ul>
       <input
@@ -57,7 +72,11 @@ export function ItemList() {
       {isEmpty && <p>No results found</p>}
       <ul>
         {searchList.map((item) => (
-          <Button item={item} key={item._id} onButtonClick={onButtonClick} />
+          <SearchListButton
+            item={item}
+            key={item._id}
+            onButtonClick={onButtonClick}
+          />
         ))}
       </ul>
     </>
