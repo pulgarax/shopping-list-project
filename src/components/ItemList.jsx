@@ -45,6 +45,10 @@ export function ItemList() {
 
   function onActiveButtonClick(buttonId) {
     setActiveList(activeList.filter((item) => item._id !== buttonId));
+    setShoppingList([
+      ...shoppingList,
+      ...activeList.filter((item) => item._id === buttonId),
+    ]);
   }
 
   console.log("ActiveList: ", activeList);
