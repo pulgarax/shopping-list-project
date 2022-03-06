@@ -65,7 +65,7 @@ export function ItemList() {
         onChange={(e) => onSearchbarChange(e.target.value)}
         placeholder="Enter your search"
       ></input>
-      {searchList.length === 0 && <p>No results found</p>}
+      {activeList.length === 0 && <p>No results found</p>}
       <ul>
         {searchList.map((item) => (
           <SearchListButton
