@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { search } from "fast-fuzzy";
-import { SearchListButton } from "./SearchListButton";
+import { SearchListButton } from "./Button/SearchListButton";
 import { ActiveListButton } from "./ActiveListButton";
 
 const ApiURL = "https://fetch-me.vercel.app/api/shopping/items";
